@@ -1,0 +1,23 @@
+---
+import HeaderAnchor from "@components/HeaderAnchor.astro";
+import HeaderRule from "@components/HeaderRule.astro";
+import Layout from "@layouts/Layout.astro";
+import { getCollection } from "astro:content";
+
+const writing = await getCollection("writing");
+---
+
+<Layout title="Kaleb Allmon Writing">
+  <header>
+    <HeaderAnchor />
+    <h2>Writing</h2>
+  </header>
+  <HeaderRule />
+  <nav>
+    <ul class="main-nav-list">
+      {writing.map((item) => (
+        <a href={`/writing/${item.id}`}>{item.data.title}</a>
+      ))}
+    </ul>
+  </nav>
+</Layout>

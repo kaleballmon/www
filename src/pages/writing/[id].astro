@@ -1,0 +1,48 @@
+---
+import HeaderAnchor from "@components/HeaderAnchor.astro";
+import HeaderRule from "@components/HeaderRule.astro";
+import Layout from "@layouts/Layout.astro";
+import { getCollection, getEntry, render } from "astro:content";
+
+export async function getStaticPaths() {
+  const writing = await getCollection("writing");
+
+  const params = writing.map((item) => ({
+    params: {
+      id: item.id,
+    },
+  }));
+  return params;
+}
+
+const { id } = Astro.params;
+const entry = id ? await getEntry("writing", id) : null;
+if (!entry) {
+  throw new Error("hmm..");
+}
+
+const date = new Intl.DateTimeFormat("en-US", { dateStyle: "full" }).format(
+  entry.data.date,
+);
+const { Content } = await render(entry);
+---
+
+<Layout title={entry.data.title} />
+<header class="flex flex-col gap-4">
+  <div>
+    <HeaderAnchor />
+    <p>{entry.data.title}</p>
+  </div>
+  <a href="/writing">All of them</a>
+</header>
+<HeaderRule />
+<main class="flex flex-col gap-4">
+  <div class="self-end date">{date}</div>
+  <Content />
+</main>
+
+<style define:vars={{ dateColor: entry.data.date_color }}>
+  .date {
+    color: var(--dateColor);
+  }
+</style>
