@@ -1,0 +1,232 @@
+---
+import HeaderAnchor from "@components/HeaderAnchor.astro";
+import HeaderRule from "@components/HeaderRule.astro";
+import Layout from "@layouts/Layout.astro";
+---
+
+<script>
+  const KEYS = [
+    {
+      element: document.getElementById("c"),
+      keymap: "Digit1",
+    },
+    {
+      element: document.getElementById("c-sharp"),
+      keymap: "Digit2",
+    },
+    {
+      element: document.getElementById("d"),
+      keymap: "Digit3",
+    },
+    {
+      element: document.getElementById("d-sharp"),
+      keymap: "Digit4",
+    },
+    {
+      element: document.getElementById("e"),
+      keymap: "Digit5",
+    },
+    {
+      element: document.getElementById("f"),
+      keymap: "Digit6",
+    },
+    {
+      element: document.getElementById("f-sharp"),
+      keymap: "Digit7",
+    },
+    {
+      element: document.getElementById("g"),
+      keymap: "Digit8",
+    },
+    {
+      element: document.getElementById("g-sharp"),
+      keymap: "Digit9",
+    },
+    {
+      element: document.getElementById("a"),
+      keymap: "Digit0",
+    },
+    {
+      element: document.getElementById("a-sharp"),
+      keymap: "Minus",
+    },
+    {
+      element: document.getElementById("b"),
+      keymap: "Equal",
+    },
+  ];
+
+  const OCTAVE_FACTOR = 2;
+
+  const audioContext = new AudioContext();
+
+  const sineTerms = new Float32Array([0, 0, 1, 0, 1]);
+  const cosineTerms = new Float32Array(sineTerms.length);
+  const customWaveform = audioContext.createPeriodicWave(
+    cosineTerms,
+    sineTerms,
+  );
+
+  const oscs: Record<string, OscillatorNode> = {};
+
+  function playKey(frequency: number, gainNode: GainNode) {
+    const osc = audioContext.createOscillator();
+    osc.connect(gainNode);
+    osc.setPeriodicWave(customWaveform);
+    osc.frequency.value = frequency;
+
+    osc.start();
+    return osc;
+  }
+
+  function notePressed(
+    event: { buttons?: number; target: HTMLElement | EventTarget | null },
+    gainNode: GainNode,
+  ) {
+    // & 1 checks if the main mouse button is in the event
+    if ((event.buttons || 0) & 1 && event.target instanceof HTMLElement) {
+      const dataset = event.target.dataset;
+      const isPressed = dataset["pressed"];
+      if (!isPressed) {
+        const eventFrequency = dataset["frequency"];
+        if (eventFrequency) {
+          oscs[eventFrequency] = playKey(
+            Number(eventFrequency) * OCTAVE_FACTOR,
+            gainNode,
+          );
+        }
+        dataset["pressed"] = "yes";
+        event.target.style.backgroundColor = "#EF3340";
+      }
+    }
+  }
+
+  function noteReleased(event: { target: HTMLElement | EventTarget | null }) {
+    if (event.target instanceof HTMLElement) {
+      const dataset = event.target.dataset;
+      if (dataset && dataset["pressed"]) {
+        const eventFrequency = dataset["frequency"];
+        if (eventFrequency) {
+          const osc = oscs[eventFrequency];
+          osc.stop();
+          delete oscs[eventFrequency];
+          delete dataset["pressed"];
+          event.target.style.backgroundColor = "transparent";
+        }
+      }
+    }
+  }
+
+  function keyNote(event: KeyboardEvent, gainNode: GainNode) {
+    const keyMap = new Map(KEYS.map((key) => [key.keymap, key.element]));
+    const el = keyMap.get(event.code);
+
+    if (el) {
+      if (event.type === "keydown") {
+        notePressed({ buttons: 1, target: el }, gainNode);
+      } else {
+        noteReleased({ target: el });
+      }
+      event.preventDefault;
+    }
+  }
+
+  function setup() {
+    const mainGainNode = audioContext.createGain();
+    mainGainNode.connect(audioContext.destination);
+    // Add the event listeners
+    for (const key of KEYS) {
+      key.element?.addEventListener("mousedown", (event) =>
+        notePressed(event, mainGainNode),
+      );
+      key.element?.addEventListener("mouseover", (event) =>
+        notePressed(event, mainGainNode),
+      );
+      key.element?.addEventListener("mouseup", noteReleased);
+      key.element?.addEventListener("mouseleave", noteReleased);
+    }
+    addEventListener("keydown", (event) => keyNote(event, mainGainNode));
+    addEventListener("keyup", (event) => keyNote(event, mainGainNode));
+  }
+
+  setup();
+</script>
+
+<Layout title="Synth v.0.1">
+  <header>
+    <HeaderAnchor />
+    <h2>Synth v.0.1</h2>
+  </header>
+  <HeaderRule />
+  <main>
+    <div class="grid grid-cols-4 pt-2">
+      <button class="note-button" data-frequency="32.70319566257483" id="c">
+        C [1]
+      </button>
+      <button
+        class="note-button"
+        data-frequency="34.64782887210901"
+        id="c-sharp"
+      >
+        C&sharp; [2]
+      </button>
+      <button class="note-button" data-frequency="36.70809598967595" id="d">
+        D [3]
+      </button>
+      <button
+        class="note-button"
+        data-frequency="38.89087296526011"
+        id="d-sharp"
+      >
+        D&sharp; [4]
+      </button>
+      <button class="note-button" data-frequency="41.20344461410874" id="e">
+        E [5]
+      </button>
+      <button class="note-button" data-frequency="43.65352892912549" id="f">
+        F [6]
+      </button>
+      <button
+        class="note-button"
+        data-frequency="46.2493028389543"
+        id="f-sharp"
+      >
+        F&sharp; [7]
+      </button>
+      <button class="note-button" data-frequency="48.99942949771866" id="g">
+        G [8]
+      </button>
+      <button
+        class="note-button"
+        data-frequency="51.91308719749314"
+        id="g-sharp"
+      >
+        G&sharp; [9]
+      </button>
+      <button class="note-button" data-frequency="55" id="a">
+        A [0]
+      </button>
+      <button
+        class="note-button"
+        data-frequency="58.27047018976124"
+        id="a-sharp"
+      >
+        A&sharp; [-]
+      </button>
+      <button class="note-button" data-frequency="61.73541265701551" id="b">
+        B [=]
+      </button>
+    </div>
+    <h3>Notes</h3>
+    <ul>
+      <li>
+        If on a computer with a keyboard, use the buttons in the brackets ([])
+        to play the synth
+      </li>
+      <li>
+        Playing multiple notes at once sounds rough – trying to figure how to
+        make that not the case
+      </li>
+    </ul>
+  </main>
+</Layout>

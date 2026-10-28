@@ -1,0 +1,19 @@
+---
+import "@styles/global.css";
+import { Font } from "astro:assets";
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="/public/favicon.svg" />
+    <title>{title}</title>
+    <Font cssVariable="--font-courier-prime" />
+  </head>
+  <body class="font-display m-8 flex flex-col gap-4">
+    <slot />
+  </body>
+</html>

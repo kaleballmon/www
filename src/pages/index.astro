@@ -1,0 +1,29 @@
+---
+import Layout from "@layouts/Layout.astro";
+import HeaderRule from "@components/HeaderRule.astro";
+import HeaderAnchor from "@components/HeaderAnchor.astro";
+import icon from "@images/icon.png";
+---
+
+<Layout title="Kaleb Allmon">
+  <header>
+    <div class="flex flex-row justify-between">
+      <div class="flex flex-col">
+        <HeaderAnchor link={false} />
+        <a href="mailto:kalebdallmon@gmail.com">kalebdallmon@gmail.com</a>
+      </div>
+      <img src={icon.src} alt="Kaleb, in pixel form." width="56" height="96" />
+    </div>
+  </header>
+  <HeaderRule />
+  <nav>
+    <ul class="main-nav-list">
+      <li>
+        <a href="/bookmarks">Bookmarks</a>
+      </li>
+      <li>
+        <a href="/exploring">Exploring</a>
+      </li>
+    </ul>
+  </nav>
+</Layout>

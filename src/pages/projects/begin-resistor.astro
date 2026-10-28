@@ -1,0 +1,17 @@
+---
+import Layout from "@layouts/Layout.astro";
+import HeaderRule from "@components/HeaderRule.astro";
+import HeaderAnchor from "@components/HeaderAnchor.astro";
+import resistor from "@images/resistor.jpeg";
+---
+
+<Layout title="Resistor">
+  <header>
+    <HeaderAnchor />
+    <h2>Resistor</h2>
+  </header>
+  <HeaderRule />
+  <main>
+    <img src={resistor.src} width="450" height="600" class="my-8 mx-auto" />
+  </main>
+</Layout>

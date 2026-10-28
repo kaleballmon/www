@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-display: var(--font-courier-prime), monospace;
+}
+
+@layer base {
+  header h2 {
+    font-size: var(--text-2xl);
+  }
+
+  a {
+    color: #0000ff;
+  }
+}
+
+@layer components {
+  .main-nav-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: --spacing(1);
+  }
+
+  .note-button {
+    background-color: transparent;
+    height: 150px;
+    width: 250px;
+    margin: 20px;
+    font-family: "Courier Prime", monospace;
+    border: 1px solid red;
+  }
+}
