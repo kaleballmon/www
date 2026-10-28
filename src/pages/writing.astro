@@ -4,7 +4,9 @@ import HeaderRule from "@components/HeaderRule.astro";
 import Layout from "@layouts/Layout.astro";
 import { getCollection } from "astro:content";
 
-const writing = await getCollection("writing");
+const writing = (await getCollection("writing")).sort(
+  (item1, item2) => item2.data.date - item1.data.date,
+);
 ---
 
 <Layout title="Kaleb Allmon Writing">
