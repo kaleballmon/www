@@ -1,0 +1,41 @@
+---
+import Layout from "@layouts/Layout.astro";
+import HeaderRule from "@components/HeaderRule.astro";
+import HeaderAnchor from "@components/HeaderAnchor.astro";
+import stool_1 from "@images/stoolv1/stool_1.mp4";
+import stool_2 from "@images/stoolv1/stool_2.png";
+import stool_3 from "@images/stoolv1/stool_3.png";
+import stool_4 from "@images/stoolv1/stool_4.png";
+import stool_5 from "@images/stoolv1/stool_5.png";
+import stool_6 from "@images/stoolv1/stool_6.png";
+import stool_7 from "@images/stoolv1/stool_7.mp4";
+import stool_8 from "@images/stoolv1/stool_8.mp4";
+import stool_9 from "@images/stoolv1/stool_9.png";
+---
+
+<Layout title="Stool v0.1">
+  <header>
+    <HeaderAnchor />
+    <h2>Stool v.0.1</h2>
+  </header>
+  <HeaderRule />
+  <main class="w-full flex flex-col items-center gap-8">
+    <video width="450" height="600" controls>
+      <source src={stool_1} type="video/mp4" />
+    </video>
+    <img src={stool_2.src} width="450" height="600" />
+    <img src={stool_3.src} width="450" height="600" />
+    <img src={stool_4.src} width="450" height="600" />
+    <div class="flex">
+      <img src={stool_5.src} width="450" height="600" />
+      <img src={stool_6.src} width="450" height="600" />
+    </div>
+    <video width="450" height="600" controls>
+      <source src={stool_7} type="video/mp4" />
+    </video>
+    <video width="450" height="600" controls>
+      <source src={stool_8} type="video/mp4" />
+    </video>
+    <img src={stool_9.src} width="450" height="600" />
+  </main>
+</Layout>
