@@ -13,22 +13,28 @@ export const title = "Stool v0.1";
 export const publishDate = new Date("2026-10-31");
 ---
 
+<style>
+  .stool-fig {
+    width: 40%;
+  }
+</style>
+
 <div class="w-full flex flex-col items-center gap-8">
-  <video width="450" height="600" controls>
+  <video class="stool-fig h-auto" controls>
     <source src={stool_1} type="video/mp4" />
   </video>
-  <img src={stool_2.src} width="450" height="600" />
-  <img src={stool_3.src} width="450" height="600" />
-  <img src={stool_4.src} width="450" height="600" />
-  <div class="flex">
-    <img src={stool_5.src} width="450" height="600" />
-    <img src={stool_6.src} width="450" height="600" />
+  <img src={stool_2.src} class="stool-fig h-auto" />
+  <img src={stool_3.src} class="stool-fig h-auto" />
+  <img src={stool_4.src} class="stool-fig h-auto" />
+  <div class="flex w-full justify-evenly">
+    <img src={stool_5.src} class="stool-fig h-auto" />
+    <img src={stool_6.src} class="stool-fig h-auto" />
   </div>
-  <video width="450" height="600" controls>
+  <video class="stool-fig h-auto" controls>
     <source src={stool_7} type="video/mp4" />
   </video>
-  <video width="450" height="600" controls>
+  <video class="stool-fig h-auto" controls>
     <source src={stool_8} type="video/mp4" />
   </video>
-  <img src={stool_9.src} width="450" height="600" />
+  <img src={stool_9.src} class="stool-fig h-auto" />
 </div>
