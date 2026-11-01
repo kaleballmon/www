@@ -27,6 +27,22 @@ const date = new Intl.DateTimeFormat("en-US", { dateStyle: "full" }).format(
 const { Content } = await render(entry);
 ---
 
+<style define:vars={{ dateColor: entry.data.date_color }}>
+  .date {
+    color: var(--dateColor);
+  }
+</style>
+
+<style is:global>
+  blockquote {
+    margin-left: 2rem;
+    padding-left: 2rem;
+    border-left: 2px solid #fe0000;
+    color: #3e424b;
+    font-style: italic;
+  }
+</style>
+
 <Layout title={entry.data.title} />
 <header class="flex flex-col gap-4">
   <div>
@@ -40,9 +56,3 @@ const { Content } = await render(entry);
   <div class="self-end date">{date}</div>
   <Content />
 </main>
-
-<style define:vars={{ dateColor: entry.data.date_color }}>
-  .date {
-    color: var(--dateColor);
-  }
-</style>
