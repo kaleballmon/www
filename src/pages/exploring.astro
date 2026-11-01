@@ -2,6 +2,12 @@
 import HeaderRule from "@components/HeaderRule.astro";
 import Layout from "@layouts/Layout.astro";
 import HeaderAnchor from "@components/HeaderAnchor.astro";
+import type { ExplorationAstroInstance } from "@types";
+import { getFilenameFromAstroInstance } from "@utils";
+
+const matches: ExplorationAstroInstance[] = Object.values(
+  import.meta.glob("../explorations/*.astro", { eager: true }),
+);
 ---
 
 <Layout title="Kaleb Allmon Exploring">
@@ -12,15 +18,15 @@ import HeaderAnchor from "@components/HeaderAnchor.astro";
   <HeaderRule />
   <nav>
     <ul class="main-nav-list">
-      <li>
-        <a href="/projects/synth-v0-1.html">Synth v0.1</a>
-      </li>
-      <li>
-        <a href="/projects/begin-resistor.html">Resistor</a>
-      </li>
-      <li>
-        <a href="/projects/stool-v0-1.html">Stool v0.1</a>
-      </li>
+      {matches
+        .sort((match_a, match_b) => match_b.publishDate - match_a.publishDate)
+        .map((match) => (
+          <li>
+            <a href={`/projects/${getFilenameFromAstroInstance(match)}`}>
+              {match.title}
+            </a>
+          </li>
+        ))}
     </ul>
   </nav>
 </Layout>

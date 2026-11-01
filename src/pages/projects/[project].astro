@@ -1,0 +1,43 @@
+---
+import Layout from "@layouts/Layout.astro";
+import HeaderRule from "@components/HeaderRule.astro";
+import HeaderAnchor from "@components/HeaderAnchor.astro";
+import type { ExplorationAstroInstance } from "@types";
+import { getFilenameFromAstroInstance } from "@utils";
+
+export function getStaticPaths() {
+  const matches: ExplorationAstroInstance[] = Object.values(
+    import.meta.glob("../../explorations/*.astro", { eager: true }),
+  );
+
+  const params = matches.map((match) => ({
+    params: {
+      project: getFilenameFromAstroInstance(match),
+    },
+  }));
+  return params;
+}
+
+const matches: ExplorationAstroInstance[] = Object.values(
+  import.meta.glob("../../explorations/*.astro", { eager: true }),
+);
+
+const { project } = Astro.params;
+const instance = project
+  ? matches.find((match) => getFilenameFromAstroInstance(match) === project)
+  : null;
+if (!instance) {
+  throw new Error("hmm..");
+}
+---
+
+<Layout title={instance.title}>
+  <header>
+    <HeaderAnchor />
+    <h2>{instance.title}</h2>
+  </header>
+  <HeaderRule />
+  <main>
+    <instance.default />
+  </main>
+</Layout>

@@ -4,7 +4,9 @@
       "@components/*": ["./src/components/*"],
       "@images/*": ["./src/images/*"],
       "@layouts/*": ["./src/layouts/*"],
-      "@styles/*": ["./src/styles/*"]
+      "@styles/*": ["./src/styles/*"],
+      "@types": ["./src/types.ts"],
+      "@utils": ["./src/utils.ts"]
     }
   },
   "extends": "astro/tsconfigs/base"

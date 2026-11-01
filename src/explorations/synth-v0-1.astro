@@ -1,7 +1,6 @@
 ---
-import HeaderAnchor from "@components/HeaderAnchor.astro";
-import HeaderRule from "@components/HeaderRule.astro";
-import Layout from "@layouts/Layout.astro";
+export const title = "Synth v.0.1";
+export const publishDate = new Date("2026-10-29");
 ---
 
 <script>
@@ -152,81 +151,52 @@ import Layout from "@layouts/Layout.astro";
   setup();
 </script>
 
-<Layout title="Synth v.0.1">
-  <header>
-    <HeaderAnchor />
-    <h2>Synth v.0.1</h2>
-  </header>
-  <HeaderRule />
-  <main>
-    <div class="grid grid-cols-4 pt-2">
-      <button class="note-button" data-frequency="32.70319566257483" id="c">
-        C [1]
-      </button>
-      <button
-        class="note-button"
-        data-frequency="34.64782887210901"
-        id="c-sharp"
-      >
-        C&sharp; [2]
-      </button>
-      <button class="note-button" data-frequency="36.70809598967595" id="d">
-        D [3]
-      </button>
-      <button
-        class="note-button"
-        data-frequency="38.89087296526011"
-        id="d-sharp"
-      >
-        D&sharp; [4]
-      </button>
-      <button class="note-button" data-frequency="41.20344461410874" id="e">
-        E [5]
-      </button>
-      <button class="note-button" data-frequency="43.65352892912549" id="f">
-        F [6]
-      </button>
-      <button
-        class="note-button"
-        data-frequency="46.2493028389543"
-        id="f-sharp"
-      >
-        F&sharp; [7]
-      </button>
-      <button class="note-button" data-frequency="48.99942949771866" id="g">
-        G [8]
-      </button>
-      <button
-        class="note-button"
-        data-frequency="51.91308719749314"
-        id="g-sharp"
-      >
-        G&sharp; [9]
-      </button>
-      <button class="note-button" data-frequency="55" id="a">
-        A [0]
-      </button>
-      <button
-        class="note-button"
-        data-frequency="58.27047018976124"
-        id="a-sharp"
-      >
-        A&sharp; [-]
-      </button>
-      <button class="note-button" data-frequency="61.73541265701551" id="b">
-        B [=]
-      </button>
-    </div>
-    <h3>Notes</h3>
-    <ul>
-      <li>
-        If on a computer with a keyboard, use the buttons in the brackets ([])
-        to play the synth
-      </li>
-      <li>
-        Playing multiple notes at once sounds rough – trying to figure how to
-        make that not the case
-      </li>
-    </ul>
-  </main>
-</Layout>
+<div class="grid grid-cols-4 pt-2">
+  <button class="note-button" data-frequency="32.70319566257483" id="c">
+    C [1]
+  </button>
+  <button class="note-button" data-frequency="34.64782887210901" id="c-sharp">
+    C&sharp; [2]
+  </button>
+  <button class="note-button" data-frequency="36.70809598967595" id="d">
+    D [3]
+  </button>
+  <button class="note-button" data-frequency="38.89087296526011" id="d-sharp">
+    D&sharp; [4]
+  </button>
+  <button class="note-button" data-frequency="41.20344461410874" id="e">
+    E [5]
+  </button>
+  <button class="note-button" data-frequency="43.65352892912549" id="f">
+    F [6]
+  </button>
+  <button class="note-button" data-frequency="46.2493028389543" id="f-sharp">
+    F&sharp; [7]
+  </button>
+  <button class="note-button" data-frequency="48.99942949771866" id="g">
+    G [8]
+  </button>
+  <button class="note-button" data-frequency="51.91308719749314" id="g-sharp">
+    G&sharp; [9]
+  </button>
+  <button class="note-button" data-frequency="55" id="a">
+    A [0]
+  </button>
+  <button class="note-button" data-frequency="58.27047018976124" id="a-sharp">
+    A&sharp; [-]
+  </button>
+  <button class="note-button" data-frequency="61.73541265701551" id="b">
+    B [=]
+  </button>
+</div>
+<h3>Notes</h3>
+<ul>
+  <li>
+    If on a computer with a keyboard, use the buttons in the brackets ([]) to
+    play the synth
+  </li>
+  <li>
+    Playing multiple notes at once sounds rough – trying to figure how to make
+    that not the case
+  </li>
+</ul>
